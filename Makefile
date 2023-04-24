@@ -2,18 +2,19 @@
 
 ARG := 
 CXX ?= clang++
-SRC = $(wildcard src/*.cpp)
-SRC += $(wildcard src/**/*.cpp)
-SRC_C_H = src/**/*.cpp src/**/*.hpp
+CXX = clang
+SRC = $(wildcard src/*.c)
+SRC += $(wildcard src/**/*.c)
+SRC_C_H = src/**/*.c src/**/*.h
 STRICT  = -Werror
-CSTD = -std=c++11
-CSTD_LINT = --std=c++11
-DEBUG  = -g -DDEBUG -ggdb3 -pg	
+CSTD = -std=gnu11
+CSTD_LINT = --std=gnu17
+DEBUG  = -g -DDEBUG -ggdb3 -pg -fsanitize=address	
 BIN  = ./build/vr
 CFLAGS := -Wall -Wextra -Wpedantic -ffast-math -Wno-unused 
 CFLAGS += -finline-functions -fno-strict-aliasing -funroll-loops
 CFLAGS += -march=native -mtune=native -Wwrite-strings -fno-exceptions
-
+CFLAGS += -lm 
 #CFLAGS += -static
 
 
@@ -70,7 +71,7 @@ lint:
 	@cppcheck  $(SRC_C_H) $(CSTD_LINT) --enable=all --check-config --quiet 
 
 format:
-	@clang-format -i src/**/*.cpp src/**/*.hpp 
+	@clang-format -i src/**/*.c src/**/*.h
 
 release:
 	$(CXX) $(SRC) -O2 -Ofast -o $(BIN) $(CFLAGS) $(CSTD) $(LIB) $(ANALYZE) -Werror $(STRICT) $(FLAG) -s 

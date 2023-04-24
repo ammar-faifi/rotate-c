@@ -58,10 +58,10 @@ CheckOptions:
     value:           'false'
   - key:             google-readability-braces-around-statements.ShortStatementLines
     value:           '1'
-  - key:             modernize-use-nullptr.NullMacros
+  - key:             modernize-use-NULL.NullMacros
     value:           'NULL'
   - key:             performance-inefficient-vector-operation.VectorLikeClasses
-    value:           '::std::vector'
+    value:           '::ArrayList'
   - key:             performance-unnecessary-copy-initialization.AllowedTypes
     value:           ''
   - key:             performance-unnecessary-value-param.IncludeStyle

@@ -1,8 +1,5 @@
-#include "include/file.hpp"
-#include "include/defines.hpp"
-
-namespace rotate
-{
+#include "include/file.h"
+#include "include/defines.h"
 
 /// NOTE:
 /// the whole file will be read at once
@@ -10,17 +7,17 @@ namespace rotate
 /// filesystem during reading as developers
 /// may modify the files during reading
 file_t
-file_read(const char *name) noexcept
+file_read(cstr name)
 {
     usize len = strlen(name);
 
-    const char *file_ext = &(name)[len - 3];
-    if (strcmp(file_ext, ".vr") !=0)
+    cstr file_ext = &(name)[len - 3];
+    if (strcmp(file_ext, ".vr") != 0)
     {
         fprintf(stderr, "%s%serror:%s file name: `%s` must end with `.vr`%s\n", BOLD, LRED, WHITE,
                 name, RESET);
 
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
 
     // open file
@@ -29,7 +26,7 @@ file_read(const char *name) noexcept
     {
         // display error message if file does not exist
         log_error("File does not exist");
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
 
     // Calculate the file length
@@ -38,24 +35,24 @@ file_read(const char *name) noexcept
     {
         log_error("File is empty");
         fclose(file);
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
 
     // NOTE: use max unsigned int possible to avoid overflow
     const usize length = (usize)ftell(file);
 
-    // NOTE: hardcoded 3 null-terminators
-    if (length > (UINT_MAX - 3))
+    // NOTE: hardcoded null-terminators
+    if (length > (RUINT_MAX - EXTRA_NULL_TERMINATORS))
     {
         log_error("File is too large");
         fclose(file);
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
     // rewind the fseek to the beginning of the file
     rewind(file);
 
     // Read the file into a buffer
-    char *buffer = new char[length + 3];
+    char *buffer = malloc(length + EXTRA_NULL_TERMINATORS);
     if (!buffer) exit_error("Memory allocation failure");
 
     // get file contents
@@ -63,11 +60,11 @@ file_read(const char *name) noexcept
     {
         log_error("Read file error");
         fclose(file);
-        delete[] buffer;
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        free(buffer);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
 
-    // add NULL charactor (EXTRA_NULL_TERMINATORS for extra safety)
+    // add nullptr charactor (EXTRA_NULL_TERMINATORS for extra safety)
     for (u8 i = 0; i < EXTRA_NULL_TERMINATORS; i++)
         buffer[length + i] = '\0';
 
@@ -76,15 +73,16 @@ file_read(const char *name) noexcept
     {
         log_error("Only ascii text files are supported for compilation");
         fclose(file);
-        delete[] buffer;
-        return file_t(nullptr, nullptr, 0, valid::failure);
+        free(buffer);
+        return (file_t){nullptr, nullptr, 0, failure};
     }
 
     // Close the file
     fclose(file);
 
-    // NOTE:
-    return file_t(name, buffer, (UINT)length, valid::success);
+    return (file_t){name, buffer, (uint)length, success};
 }
 
-} // namespace rotate
+void file_free(file_t *file) {
+    mem_free(file->contents);
+}

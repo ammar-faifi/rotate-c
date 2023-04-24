@@ -1,50 +1,57 @@
-#include "../include/common.hpp"
+#include "../include/common.h"
+#include "../fe/token.h"
 
-#include "../fe/token.hpp"
-//* USEFUL COMMON UTILS FOR ROTATE-LANG
+// Memory allocation
 
-namespace rotate
+void *
+mem_alloc(usize size)
 {
+    void *result = malloc(size);
+    return (result);
+}
 
-char *
-strndup(const char *src, const usize length)
+void *
+mem_resize(void *blk, usize size)
 {
-    char *res = new char[length];
-    ASSERT_NULL(res, "failed mem allocation");
-    for (usize i = 0; i < length; ++i)
-    {
-        res[i] = src[i];
-    }
-    return res;
+    void *result = realloc(blk, size);
+    return (result);
 }
 
 void
-log_stage(const char *str)
+mem_free(void *blk)
+{
+    free(blk);
+}
+
+// Logging
+
+void
+log_stage(cstr str)
 {
     fprintf(stderr, "[%sSTAGE%s]: %s\n", LRED, RESET, str);
 }
 
 void
-log_error(const char *str)
+log_error(cstr str)
 {
     fprintf(stderr, "[%sERROR%s]: %s\n", LRED, RESET, str);
 }
 
 void
-exit_error(const char *str)
+exit_error(cstr str)
 {
     log_error(str);
     exit(1);
 }
 
 void
-log_warn(const char *str)
+log_warn(cstr str)
 {
     fprintf(stderr, "[%sWARN%s] : %s\n", LYELLOW, RESET, str);
 }
 
 void // NOTE(5717): basically a print for debug builds
-log_debug(const char *str)
+log_debug(cstr str)
 {
 #if DEBUG
     fprintf(stderr, "[%sDEBUG%s]: %s\n", LYELLOW, RESET, str);
@@ -54,24 +61,42 @@ log_debug(const char *str)
 }
 
 void
-log_info(const char *str)
+log_info(cstr str)
 {
     fprintf(stderr, "[%sINFO%s] : %s\n", LGREEN, RESET, str);
 }
 
 // NOTE: func definition in ./frontend/include/lexer.hpp
 void
-log_token(FILE *output, const Token tkn, const char *str)
+log_token(FILE *output, const Token tkn, cstr str)
 {
     fprintf(output, "[TOKEN]: idx: %u, len: %u, type: %s, val: `%.*s`\n", tkn.index, tkn.length,
             tkn_type_describe(tkn.type), tkn.length, str + tkn.index);
 }
 
-UINT
-get_digits_from_number(const UINT num)
+void
+log_error_unknown_flag(cstr str)
+{
+    fprintf(stderr, "[%sWARN%s] : Ignored flag: `%s`\n", LYELLOW, RESET, str);
+}
+
+char *
+string_dup(cstr src, const usize length)
+{
+    char *res = malloc(length);
+    ASSERT_NULL(res, "failed mem allocation");
+    for (usize i = 0; i < length; ++i)
+    {
+        res[i] = src[i];
+    }
+    return res;
+}
+
+uint
+get_digits_from_number(const uint num)
 {
     // TODO: Test this algorithm
-    return (UINT)std::floor(std::log10(num) + 1);
+    return (uint)floor(log10l(num) + 1);
 }
 
 u8
@@ -96,4 +121,5 @@ bit_is_set(const u8 field, const u8 n)
     // NOTE(5717): returns non zero for true else 0 for false
     return ((field >> n) & 1);
 }
-} // namespace rotate
+
+// Custom ArrayList
