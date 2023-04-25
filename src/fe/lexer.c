@@ -1,6 +1,6 @@
 #include "lexer.h"
 
-// LOCAL LEXER METHODS
+// PRIVATE LEXER METHODS
 u8 lex_director(Lexer *);
 u8 lex_chars(Lexer *);
 u8 lex_numbers(Lexer *);
@@ -725,11 +725,7 @@ u8
 lex_add_token(Lexer *lexer, TknType type)
 {
     // index at the end of the token
-    Token tkn;
-    tkn.index  = lexer->index;
-    tkn.length = lexer->len;
-    tkn.line   = lexer->begin_tkn_line;
-    tkn.type   = type;
+    Token tkn = (Token){lexer->index, lexer->len, lexer->begin_tkn_line, type};
     arr_push(lexer->tokens, tkn);
     lex_advance_len_times(lexer); // TODO: Test optimization
     return SUCCESS;
