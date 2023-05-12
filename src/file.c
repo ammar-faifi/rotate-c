@@ -9,7 +9,7 @@
 file_t
 file_read(cstr name)
 {
-    usize len = strlen(name);
+    const usize len = strlen(name);
 
     cstr file_ext = &(name)[len - 3];
     if (strcmp(file_ext, ".vr") != 0)
@@ -83,6 +83,8 @@ file_read(cstr name)
     return (file_t){name, buffer, (uint)length, success};
 }
 
-void file_free(file_t *file) {
+void
+file_free(file_t *file)
+{
     mem_free(file->contents);
 }

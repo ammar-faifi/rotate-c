@@ -8,5 +8,5 @@ set(CMAKE_C_STANDARD 17)
 file(GLOB_RECURSE SOURCES "src/*.c")
 
 add_executable(vr ${SOURCES})
-set ( CMAKE_C_FLAGS "-Wall -Werror -g -DDEBUG -ggdb3 -pg -fsanitize=address -Wpedantic")
+set ( CMAKE_C_FLAGS "-Wall -Wextra -g -DDEBUG -ggdb3 -pg -fsanitize=address -Wpedantic")
 target_link_libraries(vr m)

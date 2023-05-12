@@ -2,7 +2,7 @@
 
 #include "token.h"
 
-decl_arr(Token);
+generate_array_type(Token);
 
 typedef struct Lexer
 {
@@ -11,14 +11,13 @@ typedef struct Lexer
     file_t *file; // not owned by the lexer
     LexErr error;
     uint save_index, save_line;
-    arr(Token) tokens;
+    ArrayList(Token) tokens;
 } Lexer;
 
 // Lexer API
 Lexer lexer_init(file_t *);
 void lexer_deinit(Lexer *);
-arr(Token) lexer_get_tokens(Lexer *lexer);
+ArrayList(Token) lexer_get_tokens(Lexer *lexer);
 u8 lexer_lex(Lexer *);
 void lexer_save_log(Lexer *, FILE *);
-// local Lexer methods
-// Check lexer.c
+// internal methods are in lexer.c

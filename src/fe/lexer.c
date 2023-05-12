@@ -1,29 +1,29 @@
 #include "lexer.h"
 
 // PRIVATE LEXER METHODS
-u8 lex_director(Lexer *);
-u8 lex_chars(Lexer *);
-u8 lex_numbers(Lexer *);
-u8 lex_strings(Lexer *);
-u8 lex_multiline_strings(Lexer *);
-u8 lex_binary_numbers(Lexer *);
-u8 lex_hex_numbers(Lexer *);
-u8 lex_symbols(Lexer *);
-u8 lex_builtin_funcs(Lexer *);
-u8 lex_identifiers(Lexer *);
-void lex_save_state(Lexer *);
-void lex_restore_state_for_err(Lexer *);
-u8 lex_report_error(Lexer *lexer);
-u8 lex_add_token(Lexer *, TknType);
-void lex_advance(Lexer *);
-void lex_advance_len_inc(Lexer *);
-void lex_advance_len_times(Lexer *);
-char lex_peek(Lexer *);
-char lex_past(Lexer *);
-char lex_current(Lexer *);
-bool lex_is_not_eof(Lexer *);
-void lex_skip_whitespace(Lexer *);
-bool lex_keyword_match(Lexer *, cstr, uint);
+internal u8 lex_director(Lexer *);
+internal u8 lex_chars(Lexer *);
+internal u8 lex_numbers(Lexer *);
+internal u8 lex_strings(Lexer *);
+// internal u8 lex_multiline_strings(Lexer *);
+internal u8 lex_binary_numbers(Lexer *);
+internal u8 lex_hex_numbers(Lexer *);
+internal u8 lex_symbols(Lexer *);
+internal u8 lex_builtin_funcs(Lexer *);
+internal u8 lex_identifiers(Lexer *);
+internal void lex_save_state(Lexer *);
+internal void lex_restore_state_for_err(Lexer *);
+internal u8 lex_report_error(Lexer *lexer);
+internal u8 lex_add_token(Lexer *, TknType);
+internal void lex_advance(Lexer *);
+internal void lex_advance_len_inc(Lexer *);
+internal void lex_advance_len_times(Lexer *);
+internal char lex_peek(Lexer *);
+internal char lex_past(Lexer *);
+internal char lex_current(Lexer *);
+internal bool lex_is_not_eof(Lexer *);
+internal void lex_skip_whitespace(Lexer *);
+internal bool lex_keyword_match(Lexer *, cstr, uint);
 
 // Lexer API
 // file must not be null and lexer owns the file ptr
@@ -38,7 +38,7 @@ lexer_init(file_t *file)
     lexer.file_length = file ? file->length : 0;
     lexer.file        = file;
     lexer.error       = LE_UNKNOWN;
-    lexer.tokens      = make_arr(Token, file->length / 4);
+    lexer.tokens      = make_array(Token, file->length / 4);
 
     ASSERT_NULL(lexer.tokens, "Lexer vec of tokens passed is a null pointer");
     return lexer;
@@ -47,13 +47,13 @@ lexer_init(file_t *file)
 void
 lexer_deinit(Lexer *lexer)
 {
-    arr_free(lexer->tokens);
+    array_free(lexer->tokens);
 }
 
 void
 lexer_save_log(Lexer *lexer, FILE *output)
 {
-    arr_foreach(lexer->tokens, el)
+    array_foreach(lexer->tokens, el)
     {
         log_token(output, *el, lexer->file->contents);
     }
@@ -79,7 +79,7 @@ lexer_lex(Lexer *lexer)
     return FAILURE;
 }
 
-arr(Token) lexer_get_tokens(Lexer *lexer)
+ArrayList(Token) lexer_get_tokens(Lexer *lexer)
 {
     return lexer->tokens;
 }
@@ -124,7 +124,7 @@ lex_director(Lexer *lexer)
 
     // NOTE: Idenitifiers, keywords and builtin functions
     if (c == '_' || isalpha(c)) return lex_identifiers(lexer);
-    // if (c == '@') return lex_builtin_funcs(lexer);
+    if (c == '@') return lex_builtin_funcs(lexer);
     //  Symbols
     return lex_symbols(lexer);
 }
@@ -648,7 +648,8 @@ lex_is_not_eof(Lexer *lexer)
 inline bool
 lex_keyword_match(Lexer *lexer, cstr cstr, uint length)
 {
-    return strncmp(lexer->file->contents + lexer->index, cstr, length) == 0;
+    bool res = (strncmp(lexer->file->contents + lexer->index, cstr, length) == 0);
+    return res;
 }
 
 void
@@ -725,7 +726,7 @@ lex_add_token(Lexer *lexer, TknType type)
 {
     // index at the end of the token
     Token tkn = (Token){lexer->index, lexer->len, lexer->begin_tkn_line, type};
-    arr_push(lexer->tokens, tkn);
-    lex_advance_len_times(lexer); // TODO: Test optimization
+    array_push(lexer->tokens, tkn);
+    lex_advance_len_times(lexer);
     return SUCCESS;
 }

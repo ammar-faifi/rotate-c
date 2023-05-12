@@ -10,7 +10,7 @@
 
 #define seq_len(seq) ((seq)->count)
 
-#define make_slice(T, start, count) ((slice(T)){start, count})
+#define make_slice(T, start, count) ((Slice(T)){start, count})
 #define arr_slice(arr, low, high)                                                                  \
     {                                                                                              \
         (high) - (low), arr_start(arr) + (low)                                                     \
@@ -21,31 +21,31 @@
 
 // Slice type
 
-#define slice(T) slice_##T
+#define Slice(T) Slice_##T
 
 #define decl_slice(T)                                                                              \
     typedef struct                                                                                 \
     {                                                                                              \
         size_t count;                                                                              \
         T *elements;                                                                               \
-    } slice(T)
+    } Slice(T)
 
 // arraylist type
 
 #define ARRAY_GROWTH_FACTOR 2
-#define arr(T)              arraylist_##T
-#define decl_arr(T)                                                                                \
+#define ArrayList(T)        ArrayList_##T
+#define generate_array_type(T)                                                                     \
     typedef struct T                                                                               \
     {                                                                                              \
         usize count;                                                                               \
         usize capacity;                                                                            \
         T elements[];                                                                              \
-    } * arr(T);                                                                                    \
+    } * ArrayList(T);                                                                              \
     decl_slice(T)
 
 // arraylist implementation
 
-#define arr_total_size(arr)                                                                        \
+#define array_total_size(arr)                                                                      \
     (sizeof(_arraylist_header) + (arr)->capacity * sizeof(seq_elem_type(arr)))
 
 typedef struct
@@ -62,28 +62,28 @@ _new_arr(_arraylist_header *header, usize initial_size)
     return header;
 }
 
-#define make_arr(T, size)                                                                          \
-    ((arr(T))_new_arr(mem_alloc(sizeof(_arraylist_header) + size * sizeof(T)), size))
-#define arr_free(arr) mem_free(arr)
+#define make_array(T, size)                                                                        \
+    ((ArrayList(T))_new_arr(mem_alloc(sizeof(_arraylist_header) + size * sizeof(T)), size))
+#define array_free(arr) mem_free(arr)
 
-#define arr_push(arr, ...)                                                                         \
+#define array_push(arr, ...)                                                                       \
     do                                                                                             \
     {                                                                                              \
         if ((arr)->count + 1 > (arr)->capacity)                                                    \
         {                                                                                          \
             (arr)->capacity <<= 1;                                                                 \
-            (arr) = mem_resize(arr, arr_total_size(arr));                                          \
+            (arr) = mem_resize(arr, array_total_size(arr));                                        \
         }                                                                                          \
         (arr)->elements[(arr)->count++] = __VA_ARGS__;                                             \
     } while (0);
 
-#define arr_start(arr) seq_start(arr)
-#define arr_end(arr)   seq_end(arr)
+#define array_start(arr) seq_start(arr)
+#define array_end(arr)   seq_end(arr)
 // WARN: no bounds checking
-#define arr_at(arr, idx) (arr)->elements[(idx)]
+#define array_at(arr, idx) (arr)->elements[(idx)]
 
-#define arr_len(arr) seq_len(arr)
+#define array_len(arr) seq_len(arr)
 
-#define arr_foreach(arr, el) for_each(arr, el)
+#define array_foreach(arr, el) for_each(arr, el)
 
 // end of arr.H

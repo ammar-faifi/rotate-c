@@ -92,6 +92,13 @@ string_dup(cstr src, const usize length)
     return res;
 }
 
+bool
+string_cmp(cstr a, cstr b)
+{
+    bool res = (strcmp(a, b) == 0);
+    return res;
+}
+
 uint
 get_digits_from_number(const uint num)
 {
