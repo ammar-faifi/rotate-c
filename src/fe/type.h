@@ -21,5 +21,6 @@ typedef enum
     BT_Array, // strings are char arrays
     BT_Struct,
     BT_Enum, // a member
-    BT_Id,   // TO BE VALIDATED
+    BT_Id,   // Identifier, TO BE VALIDATED
+    BT_TBD,  // TO BE DETERMINED
 } BaseType;

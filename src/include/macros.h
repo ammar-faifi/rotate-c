@@ -106,7 +106,7 @@
 #define UNREACHABLE()                                                                              \
     do                                                                                             \
     {                                                                                              \
-        fprintf(stderr, "%sREACHED UNREACHABLE STAT\n@file: %s:%d%s\n", LRED, __FILE__, __LINE__,  \
+        fprintf(stderr, "%sREACHED UNREACHABLE STATE\n@file: %s:%d%s\n", LRED, __FILE__, __LINE__, \
                 RESET);                                                                            \
         exit(1);                                                                                   \
     } while (0)

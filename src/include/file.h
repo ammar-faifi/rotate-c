@@ -11,7 +11,7 @@ typedef enum
 typedef struct
 {
     cstr name;
-    char *contents;
+    cstr contents;
     const uint length; // contents length
     valid valid_code;
 } file_t;

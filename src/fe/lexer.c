@@ -117,7 +117,6 @@ lex_director(Lexer *lexer)
     const char c = lex_current(lexer);
     // ints and floats
     if (isdigit(c)) return lex_numbers(lexer);
-
     // chars, and strings
     // TODO: Multiline strings
     if (c == '"') return lex_strings(lexer);

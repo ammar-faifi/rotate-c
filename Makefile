@@ -54,8 +54,8 @@ debug:
 
 debug_gdb: debug
 	gdb --tui $(BIN)
-#hidden_debug:
-#	@$(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) -fsanitize=undefined
+hidden_debug:
+	@$(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) -fsanitize=undefined
 
 
 

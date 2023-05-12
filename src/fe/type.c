@@ -16,7 +16,8 @@ get_base_type_string(BaseType t)
         case BT_Struct: return "STRUCT";
         case BT_Invalid: return "INVALID";
         case BT_Id: return "ID";
+        case BT_TBD: return "TBD";
     }
-    TODO("IMPLEMENT GET TYPE STRING");
+    UNREACHABLE();
     return nullptr;
 }

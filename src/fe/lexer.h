@@ -4,7 +4,7 @@
 
 decl_arr(Token);
 
-typedef struct
+typedef struct Lexer
 {
     // lexer state variables
     uint index, len, line, begin_tkn_line, file_length;
