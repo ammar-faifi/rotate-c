@@ -1,8 +1,7 @@
 .PHONY: redo clean debug all
 
 ARG := 
-CXX ?= clang++
-CXX = clang
+CC ?= clang
 SRC = $(wildcard src/*.c)
 SRC += $(wildcard src/**/*.c)
 SRC_C_H = src/**/*.c src/**/*.h
@@ -14,15 +13,15 @@ BIN  = ./build/vr
 CFLAGS := -Wall -Wextra -Wpedantic -ffast-math -Wno-unused 
 CFLAGS += -finline-functions -fno-strict-aliasing -funroll-loops
 CFLAGS += -march=native -mtune=native -Wwrite-strings -fno-exceptions
-CFLAGS += -lm 
+CFLAGS += -lm
 #CFLAGS += -static
 
 
 ANALYZE := 
-ifeq ($(CXX), gcc)
+ifeq ($(CC), gcc)
 ANALYZE = -fanalyzer
 CFLAGS += -Wcast-align=strict
-else ifeq ($(CXX), clang++)
+else ifeq ($(CC), clang++)
 #ANALYZE = -Xanalyzer
 CFLAGS += -Wcast-align
 else
@@ -43,19 +42,19 @@ gen:
 
 scan:
 	@rm -r output
-	@scan-build -o ./output $(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)
+	@scan-build -o ./output $(CC) $(SRC) -o $(BIN) $(CFLAGS) $(DEBUG) $(CSTD) $(LIB)
 	@scan-view ./output/
 
 fast:
-	$(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(CSTD) $(LIB) -Ofast $(FLAG)
+	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(CSTD) $(LIB) -Ofast $(FLAG)
 
 debug:
-	$(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) $(FLAG)
+	$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) $(FLAG)
 
 debug_gdb: debug
 	gdb --tui $(BIN)
 hidden_debug:
-	@$(CXX) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) -fsanitize=undefined
+	@$(CC) $(SRC) -o $(BIN) $(CFLAGS) $(ANALYZE) $(DEBUG) $(CSTD) $(LIB) -fsanitize=undefined
 
 
 
@@ -74,8 +73,8 @@ format:
 	@clang-format -i src/**/*.c src/**/*.h
 
 release:
-	$(CXX) $(SRC) -O2 -Ofast -o $(BIN) $(CFLAGS) $(CSTD) $(LIB) $(ANALYZE) -Werror $(STRICT) $(FLAG) -s 
+	$(CC) $(SRC) -O2 -Ofast -o $(BIN) $(CFLAGS) $(CSTD) $(LIB) $(ANALYZE) -Werror $(STRICT) $(FLAG) -s 
 
 release_min_size:
-	$(CXX) $(SRC) -O2 -Oz -o $(BIN) $(CFLAGS) $(CSTD) $(LIB) $(ANALYZE) -Werror $(STRICT) $(FLAG) -s -fvpt -ftree-loop-optimize
+	$(CC) $(SRC) -O2 -Oz -o $(BIN) $(CFLAGS) $(CSTD) $(LIB) $(ANALYZE) -Werror $(STRICT) $(FLAG) -s -fvpt -ftree-loop-optimize
 
