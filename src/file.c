@@ -80,7 +80,9 @@ file_read(cstr name)
     // Close the file
     fclose(file);
 
-    return (file_t){name, buffer, (uint)length, success};
+    uint _len  = (uint)length;
+    file_t res = (file_t){name, buffer, _len, success};
+    return res;
 }
 
 void

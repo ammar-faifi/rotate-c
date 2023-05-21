@@ -15,7 +15,7 @@ log_compilation(FILE *output, file_t *code_file, Lexer *lexer)
     assert(code_file && lexer);
 
     const ArrayList(Token) tokens = lexer->tokens;
-    if (array_len(tokens) > 0x10000000)
+    if (array_len(tokens) > 0x100000)
     {
         log_warn("Too large file to show log");
         return;

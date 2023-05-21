@@ -16,7 +16,6 @@ tkn_type_describe(const TknType type)
         case Tkn_BuiltinFunc: return "builtin_func";
         case Tkn_Equal: return "assign'='";
         case Tkn_Integer: return "integer";
-        case Tkn_SemiColon: return "semicolon';'";
         case Tkn_Colon: return "colon':'";
         case Tkn_String: return "cstr";
         case Tkn_Function: return "function'fn'";
@@ -66,7 +65,7 @@ tkn_type_describe(const TknType type)
         case Tkn_UintKeyword: return "uint";
         case Tkn_GreaterEql: return ">=";
         case Tkn_LessEql: return "<=";
-        case Tkn_Void: return "void";
+        case Tkn_Terminator: return "terminator";
         case Tkn_EOT: return "End OF Tokens";
 
         default: return "UNKNOWN";
@@ -111,7 +110,6 @@ get_keyword_or_type(const Token tkn)
         case Tkn_EqualEqual: return "==";
         case Tkn_Equal: return "=";
         case Tkn_Colon: return ":";
-        case Tkn_SemiColon: return ";";
         case Tkn_AddEqual: return "+=";
         case Tkn_SubEqual: return "-=";
         case Tkn_MultEqual: return "*=";
@@ -132,7 +130,7 @@ get_keyword_or_type(const Token tkn)
         case Tkn_NotEqual: return "!=";
         case Tkn_Not: return "!";
         case Tkn_Comma: return ",";
-        case Tkn_Void: return "void";
+        case Tkn_Terminator: return "terminator";
         case Tkn_EOT: return "end_of_tokens";
         // Needs special handling
         case Tkn_Integer:

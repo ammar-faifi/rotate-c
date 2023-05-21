@@ -1,0 +1,54 @@
+#+TITLE: COMPILATION LOG
+#+OPTIONS: toc:nil num:nil
+#+AUTHOR: Rotate compiler
+#+DATE: Sun May 21 17:59:17 2023
+
+** Meta
+- filename: =main.vr=
+- file length(chars): 71 chars
+- time: Sun May 21 17:59:17 2023
+- number of tokens: 26
+
+** FILE
+#+begin_src cpp 
+import std.io;
+// comment
+fn main() {
+   io.println("Hello, World");
+}
+
+#+end_src
+
+** TOKENS
+#+begin_src
+[TOKEN]: n: 0, idx: 0, line: 1, len: 6, type: import, val: `import`
+[TOKEN]: n: 1, idx: 7, line: 1, len: 3, type: identifier, val: `std`
+[TOKEN]: n: 2, idx: 10, line: 1, len: 1, type: dot'.', val: `.`
+[TOKEN]: n: 3, idx: 11, line: 1, len: 2, type: identifier, val: `io`
+[TOKEN]: n: 4, idx: 13, line: 1, len: 1, type: terminator, val: `;`
+[TOKEN]: n: 5, idx: 15, line: 1, len: 0, type: terminator, val: ``
+[TOKEN]: n: 6, idx: 26, line: 2, len: 0, type: terminator, val: ``
+[TOKEN]: n: 7, idx: 26, line: 2, len: 2, type: function'fn', val: `fn`
+[TOKEN]: n: 8, idx: 29, line: 3, len: 4, type: identifier, val: `main`
+[TOKEN]: n: 9, idx: 33, line: 3, len: 1, type: openparen'(', val: `(`
+[TOKEN]: n: 10, idx: 34, line: 3, len: 1, type: closeparen')', val: `)`
+[TOKEN]: n: 11, idx: 36, line: 3, len: 1, type: opencurlybrkt'{', val: `{`
+[TOKEN]: n: 12, idx: 38, line: 3, len: 0, type: terminator, val: ``
+[TOKEN]: n: 13, idx: 41, line: 3, len: 2, type: identifier, val: `io`
+[TOKEN]: n: 14, idx: 43, line: 4, len: 1, type: dot'.', val: `.`
+[TOKEN]: n: 15, idx: 44, line: 4, len: 7, type: identifier, val: `println`
+[TOKEN]: n: 16, idx: 51, line: 4, len: 1, type: openparen'(', val: `(`
+[TOKEN]: n: 17, idx: 52, line: 4, len: 14, type: cstr, val: `"Hello, World"`
+[TOKEN]: n: 18, idx: 66, line: 4, len: 1, type: closeparen')', val: `)`
+[TOKEN]: n: 19, idx: 67, line: 4, len: 1, type: terminator, val: `;`
+[TOKEN]: n: 20, idx: 69, line: 4, len: 0, type: terminator, val: ``
+[TOKEN]: n: 21, idx: 69, line: 4, len: 1, type: closecurlybrkt'}', val: `}`
+[TOKEN]: n: 22, idx: 71, line: 5, len: 0, type: terminator, val: ``
+[TOKEN]: n: 23, idx: 71, line: 5, len: 0, type: End OF Tokens, val: ``
+[TOKEN]: n: 24, idx: 71, line: 5, len: 0, type: End OF Tokens, val: ``
+[TOKEN]: n: 25, idx: 71, line: 5, len: 0, type: End OF Tokens, val: ``
+#+end_src
+
+** TODO PARSER
+
+** TODO TYPECHECKER

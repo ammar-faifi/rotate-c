@@ -26,7 +26,6 @@ typedef enum
     Tkn_True,             // 'true'
     Tkn_False,            // 'false'
     Tkn_BoolKeyword,      // 'bool'
-    Tkn_SemiColon,        // ;
     Tkn_Colon,            // :
     Tkn_Function,         // 'fn'
     Tkn_PLUS,             // +
@@ -67,7 +66,7 @@ typedef enum
     Tkn_Struct,           // 'struct'
     Tkn_Ref,              // 'ref' // TODO later
     Tkn_Nil,              // `nil` basically null
-    Tkn_Void,             // `void`
+    Tkn_Terminator,       // newline or semicolon
     Tkn_EOT,              // EOT - END OF TOKENS  (count too)
 } TknType;                // enum TknType
 

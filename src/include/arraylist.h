@@ -32,8 +32,8 @@
 
 // arraylist type
 
-#define ARRAY_GROWTH_FACTOR 2
-#define ArrayList(T)        ArrayList_##T
+// #define ARRAY_GROWTH_FACTOR 2
+#define ArrayList(T) ArrayList_##T
 #define generate_array_type(T)                                                                     \
     typedef struct T                                                                               \
     {                                                                                              \

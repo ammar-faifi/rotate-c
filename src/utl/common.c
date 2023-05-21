@@ -93,7 +93,7 @@ string_dup(cstr src, const usize length)
 }
 
 bool
-string_cmp(cstr a, cstr b)
+string_cmp(cstr restrict a, cstr restrict b)
 {
     bool res = (strcmp(a, b) == 0);
     return res;

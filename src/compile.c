@@ -109,7 +109,7 @@ compile_options_new(const i32 argc, i8 **argv)
 }
 
 void
-print_version_and_exit()
+print_version_and_exit(void)
 {
     cstr out = " Rotate Compiler \n Version: %s\n"
                " --lex   for lexical analysis\n"

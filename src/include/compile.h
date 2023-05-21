@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-void print_version_and_exit();
+void print_version_and_exit(void);
 
 typedef struct
 {
