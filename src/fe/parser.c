@@ -7,9 +7,30 @@
  * Internal private functions definitions
  *
  */
-internal u8 parse_imports(Parser *);
 internal u8 parser_director(Parser *);
+internal u8 parse_imports(Parser *);
 internal u8 parse_functions(Parser *);
+internal u8 parse_structs(Parser *);
+internal u8 parse_enums(Parser *);
+internal u8 parse_gl_vars(Parser *);
+// useful parser utils
+internal Token
+current(Parser *p)
+{
+    return array_at(p->lexer->tokens, (p->index));
+}
+
+internal Token
+next(Parser *p)
+{
+    return array_at(p->lexer->tokens, (p->index + 1));
+}
+
+internal Token
+previous(Parser *p)
+{
+    return array_at(p->lexer->tokens, (p->index - 1));
+}
 
 /*
  *
@@ -66,5 +87,29 @@ parse_functions(Parser *p)
 {
     UNUSED(p);
     TODO("implement parse functions");
+    return FAILURE;
+}
+
+u8
+parse_structs(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parse structs");
+    return FAILURE;
+}
+
+u8
+parse_enums(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parse enums");
+    return FAILURE;
+}
+
+u8
+parse_gl_vars(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parse global variables");
     return FAILURE;
 }

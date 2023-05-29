@@ -60,7 +60,7 @@ typedef enum
     Tkn_OrKeyword,        // 'or' logical or
     Tkn_Comma,            // ,
     Tkn_PubKeyword,       // 'pub'
-    Tkn_SwitchKeyword,     // 'switch'
+    Tkn_SwitchKeyword,    // 'switch'
     Tkn_EnumKeyword,      // 'enum'
     Tkn_EqualEqual,       // ==
     Tkn_BreakKeyword,     // 'break' // only loops
