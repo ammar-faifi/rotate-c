@@ -1,12 +1,12 @@
-import "std/io";
+io :: import "std/io"
 
-fn main() {
-	x := 1; // inferred variable
-	y :: 2; // inferred constant
-	z :int = 1; // int variable
-	print_int(x);
-	print_int(y);
-	print_int(z);
-	println("");
+main :: fn() {
+	x := 1 // inferred variable
+	y :: 2 // inferred constant
+	z :int = 1 // int variable
+	io.print_i(x)
+	io.print_i(y)
+	io.print_i(z)
+	io.println("")
 }
 

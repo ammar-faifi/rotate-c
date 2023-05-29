@@ -1,10 +1,10 @@
-import "std/io";
+io :: import "std/io"
 
-fn add(x: int, y: int) int {
-    return x + y;
+add :: fn(x: int, y: int) int {
+    ret x + y
 }
 
-fn main() {
-    print_int(add(1, 2));
-    println("");
+main :: fn() {
+    io.print_i(add(1, 2))
+    io.println("")
 }

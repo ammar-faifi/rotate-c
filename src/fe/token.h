@@ -8,42 +8,42 @@ typedef uint TknIdx;
 
 typedef enum
 {
-    Tkn_Identifier = 0,   // ids
-    Tkn_BuiltinFunc,      // @ids
-    Tkn_To,               // ..
-    Tkn_In,               // in
-    Tkn_As,               // 'as'
-    Tkn_Delete,           // 'delete'
+    Tkn_Identifier,       // ids
+    Tkn_BuiltinId,        // @id
+    Tkn_AsKeyword,        // 'as'
+    Tkn_DeleteKeyword,    // 'del'
+    Tkn_NewKeyword,       // 'new'
     Tkn_Equal,            // =
-    Tkn_Integer,          // refers to 10 digits ints
+    Tkn_IntegerLiteral,   // refers to 10 digits ints
     Tkn_IntKeyword,       // 'int'
-    Tkn_UintKeyword,      // 'uint'
-    Tkn_Float,            // refer to floats
-    Tkn_FloatKeyword,     // 'float'
-    Tkn_String,           // refer to strings
-    Tkn_Char,             // refers to chars
+    Tkn_UIntKeyword,      // 'uint'
+    Tkn_FloatLiteral,     // refer to floats
+    Tkn_FltKeyword,       // 'flt'
+    Tkn_StringLiteral,    // refer to strings
+    Tkn_CharLiteral,      // refers to chars
     Tkn_CharKeyword,      // 'char'
-    Tkn_True,             // 'true'
-    Tkn_False,            // 'false'
+    Tkn_TrueLiteral,      // 'true'
+    Tkn_FalseLiteral,     // 'false'
     Tkn_BoolKeyword,      // 'bool'
+    Tkn_Terminator,       // ; | '\n'
     Tkn_Colon,            // :
-    Tkn_Function,         // 'fn'
-    Tkn_PLUS,             // +
-    Tkn_MINUS,            // -
-    Tkn_Star,             // *
-    Tkn_DIV,              // /
+    Tkn_FnKeyword,        // 'fn'
+    Tkn_PlusOperator,     // +
+    Tkn_MinusOperator,    // -
+    Tkn_MultOperator,     // *
+    Tkn_DivOperator,      // /
     Tkn_OpenParen,        // (
     Tkn_CloseParen,       // )
     Tkn_OpenCurly,        // {
     Tkn_CloseCurly,       // }
     Tkn_OpenSQRBrackets,  // [
     Tkn_CloseSQRBrackets, // ]
-    Tkn_Return,           // 'return'
-    Tkn_Import,           // 'import'
-    Tkn_If,               // 'if'
-    Tkn_Else,             // 'else'
-    Tkn_For,              // 'for'
-    Tkn_While,            // 'while'
+    Tkn_RetKeyword,       // 'ret'
+    Tkn_ImportKeyword,    // 'import'
+    Tkn_IfKeyword,        // 'if'
+    Tkn_ElseKeyword,      // 'else'
+    Tkn_ForKeyword,       // 'for'
+    Tkn_WhileKeyword,     // 'while'
     Tkn_Greater,          // >
     Tkn_GreaterEql,       // >=
     Tkn_Less,             // <
@@ -51,24 +51,35 @@ typedef enum
     Tkn_Dot,              // .
     Tkn_Not,              // "!"
     Tkn_NotEqual,         // "!="
-    Tkn_And,              // 'and'
-    Tkn_Or,               // 'or'
+    Tkn_AndKeyword,       // 'and' logical and
+    Tkn_BitwiseAnd,       // &
+    Tkn_BitwiseOr,        // |
+    Tkn_BitwiseXor,       // ^
+    Tkn_LeftShift,        // <<
+    Tkn_RightShift,       // >>
+    Tkn_OrKeyword,        // 'or' logical or
     Tkn_Comma,            // ,
-    Tkn_Public,           // 'pub'
-    Tkn_Switch,           // 'switch'
-    Tkn_Enum,             // 'enum'
+    Tkn_PubKeyword,       // 'pub'
+    Tkn_SwitchKeyword,     // 'switch'
+    Tkn_EnumKeyword,      // 'enum'
     Tkn_EqualEqual,       // ==
-    Tkn_Break,            // 'break'
+    Tkn_BreakKeyword,     // 'break' // only loops
+    Tkn_FallKeyword,      // 'fall' // only switch statements
     Tkn_AddEqual,         // +=
     Tkn_SubEqual,         // -=
     Tkn_MultEqual,        // *=
     Tkn_DivEqual,         // /=
-    Tkn_Struct,           // 'struct'
-    Tkn_Ref,              // 'ref' // TODO later
-    Tkn_Nil,              // `nil` basically null
-    Tkn_Terminator,       // newline or semicolon
-    Tkn_EOT,              // EOT - END OF TOKENS  (count too)
-} TknType;                // enum TknType
+    Tkn_StructKeyword,    // 'struct'
+    Tkn_DeferKeyword,     // 'defer' cleanup at end of scope
+    Tkn_VariantKeyword,   // 'variant' basically tagged union
+    Tkn_RefKeyword,       // 'ref' // TODO later
+    Tkn_NilLiteral,       // `nil` basically null
+    Tkn_EOT,              // END OF TOKENS (last token type in list)
+
+    // WARN: Never use this as a token type
+    Tkn_COUNT, // Used for counting the number of members of the enum
+
+} TknType; // enum TknType
 
 cstr tkn_type_describe(const TknType type);
 

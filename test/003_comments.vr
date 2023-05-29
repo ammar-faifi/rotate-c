@@ -4,7 +4,7 @@
  multi line comments
 */
 
-fn main() {}
+main :: fn() {}
 
 /* multi line comments do not need to have an
  ending delimiter because EOF is enough for 

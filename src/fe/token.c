@@ -7,144 +7,77 @@ tkn_type_describe(const TknType type)
 {
     switch (type)
     {
-        case Tkn_As: return "as";
-        case Tkn_In: return "in";
-        case Tkn_To: return "to";
-        case Tkn_Delete: return "delete";
+        case Tkn_DeferKeyword: return "defer";
+        case Tkn_VariantKeyword: return "variant";
+        case Tkn_FallKeyword: return "fall";
+        case Tkn_RightShift: return ">>";
+        case Tkn_LeftShift: return "<<";
+        case Tkn_BitwiseXor: return "^";
+        case Tkn_BitwiseOr: return "|";
+        case Tkn_BitwiseAnd: return "&";
+        case Tkn_NewKeyword: return "new";
+        case Tkn_AsKeyword: return "as";
+        case Tkn_DeleteKeyword: return "delete";
         case Tkn_CharKeyword: return "char";
         case Tkn_Identifier: return "identifier";
-        case Tkn_BuiltinFunc: return "builtin_func";
+        case Tkn_BuiltinId: return "builtin_id";
         case Tkn_Equal: return "assign'='";
-        case Tkn_Integer: return "integer";
+        case Tkn_IntegerLiteral: return "integer";
         case Tkn_Colon: return "colon':'";
-        case Tkn_String: return "cstr";
-        case Tkn_Function: return "function'fn'";
-        case Tkn_PLUS: return "plus'+'";
-        case Tkn_MINUS: return "minus'-'";
-        case Tkn_Star: return "star'*'";
-        case Tkn_DIV: return "divide'/'";
+        case Tkn_StringLiteral: return "cstr";
+        case Tkn_FnKeyword: return "function'fn'";
+        case Tkn_PlusOperator: return "plus'+'";
+        case Tkn_MinusOperator: return "minus'-'";
+        case Tkn_MultOperator: return "star'*'";
+        case Tkn_DivOperator: return "divide'/'";
         case Tkn_OpenParen: return "openparen'('";
         case Tkn_CloseParen: return "closeparen')'";
         case Tkn_OpenCurly: return "opencurlybrkt'{'";
         case Tkn_CloseCurly: return "closecurlybrkt'}'";
         case Tkn_OpenSQRBrackets: return "opensqrbrkt']'";
         case Tkn_CloseSQRBrackets: return "closesqrbrkt'['";
-        case Tkn_Char: return "char";
-        case Tkn_Return: return "return";
-        case Tkn_Import: return "import";
-        case Tkn_If: return "if";
-        case Tkn_Else: return "else";
-        case Tkn_For: return "for";
-        case Tkn_While: return "while";
+        case Tkn_CharLiteral: return "char";
+        case Tkn_RetKeyword: return "return";
+        case Tkn_ImportKeyword: return "import";
+        case Tkn_IfKeyword: return "if";
+        case Tkn_ElseKeyword: return "else";
+        case Tkn_ForKeyword: return "for";
+        case Tkn_WhileKeyword: return "while";
         case Tkn_Greater: return "greater'>'";
         case Tkn_Less: return "less'<'";
-        case Tkn_True: return "bool:true";
-        case Tkn_False: return "bool:false";
+        case Tkn_TrueLiteral: return "bool:true";
+        case Tkn_FalseLiteral: return "bool:false";
         case Tkn_Dot: return "dot'.'";
         case Tkn_Not: return "not'!'";
-        case Tkn_And: return "and";
-        case Tkn_Or: return "or";
-        case Tkn_Float: return "float";
+        case Tkn_AndKeyword: return "and";
+        case Tkn_OrKeyword: return "or";
+        case Tkn_FloatLiteral: return "float";
         case Tkn_Comma: return "comma','";
-        case Tkn_Public: return "public";
+        case Tkn_PubKeyword: return "public";
         case Tkn_NotEqual: return "`!=` not eql"; return "char_word";
-        case Tkn_FloatKeyword: return "float_word";
+        case Tkn_FltKeyword: return "float_word";
         case Tkn_IntKeyword: return "int_word";
-        case Tkn_Switch: return "switch";
+        case Tkn_SwitchKeyword: return "switch";
         case Tkn_BoolKeyword: return "bool_word";
         case Tkn_EqualEqual: return "equality";
-        case Tkn_Break: return "break";
+        case Tkn_BreakKeyword: return "break";
         case Tkn_AddEqual: return "add_equal";
         case Tkn_DivEqual: return "divide_equal";
         case Tkn_MultEqual: return "multiply_equal";
         case Tkn_SubEqual: return "subtract_equal";
-        case Tkn_Struct: return "struct";
-        case Tkn_Ref: return "ref";
-        case Tkn_Enum: return "enum";
-        case Tkn_Nil: return "nil (null)";
-        case Tkn_UintKeyword: return "uint";
+        case Tkn_StructKeyword: return "struct";
+        case Tkn_RefKeyword: return "ref";
+        case Tkn_EnumKeyword: return "enum";
+        case Tkn_NilLiteral: return "nil (null)";
+        case Tkn_UIntKeyword: return "uint";
         case Tkn_GreaterEql: return ">=";
         case Tkn_LessEql: return "<=";
         case Tkn_Terminator: return "terminator";
         case Tkn_EOT: return "End OF Tokens";
-
-        default: return "UNKNOWN";
+        case Tkn_COUNT: break;
     }
-}
 
-cstr
-get_keyword_or_type(const Token tkn)
-{
-
-    switch (tkn.type)
-    {
-        case Tkn_As: return "as";
-        case Tkn_In: return "in";
-        case Tkn_To: return "..";
-        case Tkn_Delete: return "delete";
-        case Tkn_GreaterEql: return ">=";
-        case Tkn_LessEql: return "<=";
-        case Tkn_UintKeyword: return "uint";
-        case Tkn_Function: return "fn";
-        case Tkn_If: return "if";
-        case Tkn_Or: return "or";
-        case Tkn_For: return "for";
-        case Tkn_Public: return "pub";
-        case Tkn_IntKeyword: return "int";
-        case Tkn_Ref: return "ref";
-        case Tkn_And: return "and";
-        case Tkn_Nil: return "nil";
-        case Tkn_Enum: return "enum";
-        case Tkn_Else: return "else";
-        case Tkn_True: return "true";
-        case Tkn_CharKeyword: return "char";
-        case Tkn_BoolKeyword: return "bool";
-        case Tkn_While: return "while";
-        case Tkn_False: return "false";
-        case Tkn_Switch: return "switch";
-        case Tkn_Break: return "break";
-        case Tkn_Return: return "return";
-        case Tkn_Import: return "import";
-        case Tkn_FloatKeyword: return "float";
-        case Tkn_Struct: return "struct";
-        case Tkn_EqualEqual: return "==";
-        case Tkn_Equal: return "=";
-        case Tkn_Colon: return ":";
-        case Tkn_AddEqual: return "+=";
-        case Tkn_SubEqual: return "-=";
-        case Tkn_MultEqual: return "*=";
-        case Tkn_DivEqual: return "/=";
-        case Tkn_PLUS: return "+";
-        case Tkn_MINUS: return "-";
-        case Tkn_Star: return "*";
-        case Tkn_DIV: return "/";
-        case Tkn_OpenParen: return "(";
-        case Tkn_CloseParen: return ")";
-        case Tkn_OpenCurly: return "{";
-        case Tkn_CloseCurly: return "}";
-        case Tkn_OpenSQRBrackets: return "[";
-        case Tkn_CloseSQRBrackets: return "]";
-        case Tkn_Greater: return ">";
-        case Tkn_Less: return "<";
-        case Tkn_Dot: return ".";
-        case Tkn_NotEqual: return "!=";
-        case Tkn_Not: return "!";
-        case Tkn_Comma: return ",";
-        case Tkn_Terminator: return "terminator";
-        case Tkn_EOT: return "end_of_tokens";
-        // Needs special handling
-        case Tkn_Integer:
-        case Tkn_Float:
-        case Tkn_Identifier:
-        case Tkn_String:
-        case Tkn_Char:
-        case Tkn_BuiltinFunc:
-            ASSERT(false, "handle edge case of allocating for custom cstr representation");
-            /*default: {
-                return "TODO: IMPLEMENT";
-            }*/
-    }
-    ASSERT(false, "implement Type to cstr situation");
+    return "UNKNOWN";
 }
 
 cstr

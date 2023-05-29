@@ -8,10 +8,10 @@ SRC_C_H = src/**/*.c src/**/*.h
 STRICT  = -Werror
 CSTD = -std=gnu11
 CSTD_LINT = --std=gnu17
-DEBUG  = -g -DDEBUG -ggdb3 -pg -fsanitize=address	
+DEBUG  = -g -DDEBUG -ggdb3 -pg #-fsanitize=address	
 BIN  = ./build/vr
-CFLAGS := -Wall -Wextra -Wpedantic -ffast-math -Wno-unused 
-CFLAGS += -finline-functions -fno-strict-aliasing -funroll-loops
+CFLAGS := -Wall -Wextra -Wpedantic -Wno-unused 
+CFLAGS += -fno-strict-aliasing# -funroll-loops
 CFLAGS += -march=native -mtune=native -Wwrite-strings -fno-exceptions
 CFLAGS += -lm
 #CFLAGS += -static

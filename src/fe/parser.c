@@ -8,6 +8,8 @@
  *
  */
 internal u8 parse_imports(Parser *);
+internal u8 parser_director(Parser *);
+internal u8 parse_functions(Parser *);
 
 /*
  *
@@ -17,16 +19,17 @@ internal u8 parse_imports(Parser *);
 Parser
 parser_init(Lexer *l)
 {
-    UNUSED(l);
-    TODO("implement parser");
-    return (Parser){0};
+    Parser parser = {0};
+    parser.lexer  = l;
+    parser.index  = 0;
+    return parser;
 }
 
 u8
-parser_director(Parser *p)
+parser_parse(Parser *p)
 {
     UNUSED(p);
-    TODO("implement parser director");
+    TODO("implement parser");
     return FAILURE;
 }
 
@@ -35,4 +38,33 @@ parser_deinit(Parser *p)
 {
     UNUSED(p);
     TODO("implement deinitializer");
+}
+
+/*
+ *
+ * internal functions
+ *
+ */
+u8
+parser_director(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parser director");
+    return FAILURE;
+}
+
+u8
+parse_imports(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parser imports");
+    return FAILURE;
+}
+
+u8
+parse_functions(Parser *p)
+{
+    UNUSED(p);
+    TODO("implement parse functions");
+    return FAILURE;
 }
