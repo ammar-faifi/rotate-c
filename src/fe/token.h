@@ -11,6 +11,7 @@ typedef enum
     Tkn_Identifier,       // ids
     Tkn_BuiltinId,        // @id
     Tkn_AsKeyword,        // 'as'
+    Tkn_LetKeyword,       // 'let'
     Tkn_DeleteKeyword,    // 'del'
     Tkn_NewKeyword,       // 'new'
     Tkn_Equal,            // =
@@ -49,6 +50,7 @@ typedef enum
     Tkn_Less,             // <
     Tkn_LessEql,          // <=
     Tkn_Dot,              // .
+    Tkn_Mod,              // %
     Tkn_Not,              // "!"
     Tkn_NotEqual,         // "!="
     Tkn_AndKeyword,       // 'and' logical and

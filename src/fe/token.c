@@ -7,6 +7,7 @@ tkn_type_describe(const TknType type)
 {
     switch (type)
     {
+        case Tkn_LetKeyword: return "let";
         case Tkn_DeferKeyword: return "defer";
         case Tkn_VariantKeyword: return "variant";
         case Tkn_FallKeyword: return "fall";
@@ -24,7 +25,7 @@ tkn_type_describe(const TknType type)
         case Tkn_Equal: return "assign'='";
         case Tkn_IntegerLiteral: return "integer";
         case Tkn_Colon: return "colon':'";
-        case Tkn_StringLiteral: return "cstr";
+        case Tkn_StringLiteral: return "string";
         case Tkn_FnKeyword: return "function'fn'";
         case Tkn_PlusOperator: return "plus'+'";
         case Tkn_MinusOperator: return "minus'-'";
@@ -48,6 +49,7 @@ tkn_type_describe(const TknType type)
         case Tkn_TrueLiteral: return "bool:true";
         case Tkn_FalseLiteral: return "bool:false";
         case Tkn_Dot: return "dot'.'";
+        case Tkn_Mod: return "%";
         case Tkn_Not: return "not'!'";
         case Tkn_AndKeyword: return "and";
         case Tkn_OrKeyword: return "or";

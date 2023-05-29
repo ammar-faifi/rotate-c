@@ -173,6 +173,9 @@ lex_identifiers(Lexer *l)
         case 3: {
             switch (lex_current(l))
             {
+                case 'l':
+                    if (lex_keyword_match(l, "let", 3)) _type = Tkn_LetKeyword;
+                    break;
                 case 'f':
                     if (lex_keyword_match(l, "for", 3)) _type = Tkn_ForKeyword;
                     break;
@@ -456,7 +459,7 @@ lex_symbols(Lexer *l)
         case ',': return lex_add_token(l, Tkn_Comma);
         case ';': return lex_add_terminator(l);
         case '.': return lex_add_token(l, Tkn_Dot);
-
+        case '%': return lex_add_token(l, Tkn_Mod);
         // TODO(5717) bug below needs to check an eql during peeking
 
         // more than one length char

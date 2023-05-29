@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "token.h"
 #include "type.h"
 
 /*
@@ -35,7 +36,7 @@ previous(Parser *p)
 internal void
 advance(Parser *p)
 {
-    p->index += 1;
+    p->index++;
 }
 
 internal u8
@@ -86,15 +87,27 @@ parser_deinit(Parser *p)
 u8
 parse_director(Parser *p)
 {
-    UNUSED(p);
-    TODO("implement parser director");
-    return FAILURE;
+    u8 exit = FAILURE;
+    while (true)
+    {
+
+        switch (current(p).type)
+        {
+            case Tkn_ImportKeyword: exit = parse_imports(p); break;
+            case Tkn_FnKeyword: exit = parse_functions(p); break;
+            case Tkn_StructKeyword: exit = parse_structs(p); break;
+            case Tkn_EnumKeyword: exit = parse_enums(p); break;
+            case Tkn_LetKeyword: exit = parse_gl_vars(p); break;
+            default: break;
+        }
+    }
+    return exit;
 }
 
 u8
 parse_imports(Parser *p)
 {
-    UNUSED(p);
+    advance(p); // skip 'import'
     TODO("implement parser imports");
     return FAILURE;
 }
@@ -102,7 +115,7 @@ parse_imports(Parser *p)
 u8
 parse_functions(Parser *p)
 {
-    UNUSED(p);
+    advance(p); // skip 'fn'
     TODO("implement parse functions");
     return FAILURE;
 }
@@ -110,7 +123,7 @@ parse_functions(Parser *p)
 u8
 parse_structs(Parser *p)
 {
-    UNUSED(p);
+    advance(p); // skip 'struct'
     TODO("implement parse structs");
     return FAILURE;
 }
@@ -118,7 +131,7 @@ parse_structs(Parser *p)
 u8
 parse_enums(Parser *p)
 {
-    UNUSED(p);
+    advance(p); // skip 'enum'
     TODO("implement parse enums");
     return FAILURE;
 }
@@ -126,7 +139,7 @@ parse_enums(Parser *p)
 u8
 parse_gl_vars(Parser *p)
 {
-    UNUSED(p);
+    advance(p); // skip 'let'
     TODO("implement parse global variables");
     return FAILURE;
 }
