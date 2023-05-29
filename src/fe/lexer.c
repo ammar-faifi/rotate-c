@@ -733,7 +733,7 @@ lex_add_token(Lexer *l, TknType type)
 u8
 lex_add_terminator(Lexer *l)
 {
-    if (array_end(l->tokens)->type != Tkn_Terminator)
+    if (array_end(l->tokens).type != Tkn_Terminator)
     {
         return lex_add_token(l, Tkn_Terminator);
     }

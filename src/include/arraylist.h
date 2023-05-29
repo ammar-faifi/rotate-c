@@ -78,7 +78,7 @@ _new_arr(_arraylist_header *header, usize initial_size)
     } while (0);
 
 #define array_start(arr) seq_start(arr)
-#define array_end(arr)   seq_end(arr)
+#define array_end(arr)   (array_at(arr, (array_len(arr) - 1)))
 // WARN: no bounds checking
 #define array_at(arr, idx) (arr)->elements[(idx)]
 

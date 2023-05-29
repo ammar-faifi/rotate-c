@@ -7,13 +7,14 @@
  * Internal private functions definitions
  *
  */
-internal u8 parser_director(Parser *);
+internal u8 parse_director(Parser *);
 internal u8 parse_imports(Parser *);
 internal u8 parse_functions(Parser *);
 internal u8 parse_structs(Parser *);
 internal u8 parse_enums(Parser *);
 internal u8 parse_gl_vars(Parser *);
-// useful parser utils
+
+// NOTE(5717): useful parser utils
 internal Token
 current(Parser *p)
 {
@@ -67,7 +68,7 @@ parser_deinit(Parser *p)
  *
  */
 u8
-parser_director(Parser *p)
+parse_director(Parser *p)
 {
     UNUSED(p);
     TODO("implement parser director");
