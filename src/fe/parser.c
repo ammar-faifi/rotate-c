@@ -1,5 +1,4 @@
 #include "parser.h"
-#include "errmsgs.h"
 #include "type.h"
 
 /*
@@ -33,6 +32,23 @@ previous(Parser *p)
     return array_at(p->lexer->tokens, (p->index - 1));
 }
 
+internal void
+advance(Parser *p)
+{
+    p->index += 1;
+}
+
+internal u8
+expect_n_consume(Parser *p, TknType t)
+{
+    Token tkn = current(p);
+    if (tkn.type == t)
+    {
+        advance(p);
+        return SUCCESS;
+    }
+    return FAILURE;
+}
 /*
  *
  * Public functions
