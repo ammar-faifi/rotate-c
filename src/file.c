@@ -69,7 +69,8 @@ file_read(cstr name)
         buffer[length + i] = '\0';
 
     // simple validator (check first char if it is a visible ascii or is_space(without tabs))
-    if (isgraph(buffer[0]))
+    char c = buffer[0];
+    if (!isspace(c) && !isprint(c))
     {
         log_error("Only ascii text files are supported for compilation");
         fclose(file);
