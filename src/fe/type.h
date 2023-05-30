@@ -3,8 +3,7 @@
 #include "token.h"
 
 // NOTE(5717): not to be confused with TknIdx
-// Type Index will pointer multiple symbol tables and will differtiate
-// by the type
+// Type Index will pointer multiple symbol tables and will differ by the type
 typedef uint TypeIndex;  // Type index
 typedef uint ExprIdx;    // Expression index
 typedef uint ExprLocIdx; // Expression location index
