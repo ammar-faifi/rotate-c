@@ -61,6 +61,7 @@ parser_init(Lexer *l)
     Parser parser = {0};
     parser.lexer  = l;
     parser.index  = 0;
+    // TODO: allocate ast
     return parser;
 }
 
@@ -87,8 +88,8 @@ parser_deinit(Parser *p)
 u8
 parse_director(Parser *p)
 {
-    u8 exit = FAILURE;
-    while (true)
+    u8 exit = SUCCESS;
+    while (exit == SUCCESS)
     {
         
         switch (current(p).type)
@@ -98,6 +99,7 @@ parse_director(Parser *p)
             case Tkn_StructKeyword: exit = parse_structs(p); break;
             case Tkn_EnumKeyword: exit = parse_enums(p); break;
             case Tkn_LetKeyword: exit = parse_gl_vars(p); break;
+            case Tkn_EOT: exit = DONE; break;
             default: break;
         }
     }

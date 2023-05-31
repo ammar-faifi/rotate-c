@@ -44,6 +44,6 @@ main(const int argc, char **const argv)
     // print comptime
     end_t   = clock();
     total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
-    printf("[%sTIME%s] : %.5Lf sec\n", LMAGENTA, RESET, total_t);
+    printf("[%sTIME%s] : %.5Lf sec\n", LMAGENTA BOLD, RESET, total_t);
     return SUCCESS;
 }

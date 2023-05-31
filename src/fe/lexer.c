@@ -104,7 +104,6 @@ lex_skip_whitespace(Lexer *l)
         }
         else if (c == '\n')
         {
-            l->index += 1;
             lex_add_terminator(l);
             l->line += 1;
         }
@@ -739,6 +738,8 @@ lex_add_terminator(Lexer *l)
     if (array_len(l->tokens) > 0 && array_end(l->tokens).type != Tkn_Terminator)
     {
         return lex_add_token(l, Tkn_Terminator);
+    } else {
+        lex_advance(l);
     }
     return SUCCESS;
 }

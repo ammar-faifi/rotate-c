@@ -28,13 +28,13 @@ mem_free(void *blk)
 void
 log_stage(cstr str)
 {
-    fprintf(stderr, "[%sSTAGE%s]: %s\n", LRED, RESET, str);
+    fprintf(stderr, "[%sSTAGE%s]: %s\n", LRED BOLD, RESET, str);
 }
 
 void
 log_error(cstr str)
 {
-    fprintf(stderr, "[%sERROR%s]: %s\n", LRED, RESET, str);
+    fprintf(stderr, "[%sERROR%s]: %s\n", LRED BOLD, RESET, str);
 }
 
 void
@@ -47,14 +47,14 @@ exit_error(cstr str)
 void
 log_warn(cstr str)
 {
-    fprintf(stderr, "[%sWARN%s] : %s\n", LYELLOW, RESET, str);
+    fprintf(stderr, "[%sWARN%s] : %s\n", LYELLOW BOLD, RESET, str);
 }
 
 void // NOTE(5717): basically a print for debug builds
 log_debug(cstr str)
 {
 #if DEBUG
-    fprintf(stderr, "[%sDEBUG%s]: %s\n", LYELLOW, RESET, str);
+    fprintf(stderr, "[%sDEBUG%s]: %s\n", LYELLOW BOLD, RESET, str);
 #else
     UNUSED(str);
 #endif
@@ -63,7 +63,7 @@ log_debug(cstr str)
 void
 log_info(cstr str)
 {
-    fprintf(stderr, "[%sINFO%s] : %s\n", LGREEN, RESET, str);
+    fprintf(stderr, "[%sINFO%s] : %s\n", LGREEN BOLD, RESET, str);
 }
 
 // NOTE: func definition in ./frontend/include/lexer.hpp
