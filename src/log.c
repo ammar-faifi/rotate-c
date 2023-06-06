@@ -8,7 +8,7 @@
 #include "fe/token.h"
 
 void
-log_compilation(FILE *output, file_t *code_file, Lexer *lexer)
+log_compilation(FILE *output, File *code_file, Lexer *lexer)
 {
     time_t rawtime;
     time(&rawtime);

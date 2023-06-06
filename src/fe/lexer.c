@@ -30,7 +30,7 @@ internal u8 lex_add_terminator(Lexer *);
 // Lexer API
 // file must not be null and l owns the file ptr
 Lexer
-lexer_init(file_t *file)
+lexer_init(File *file)
 {
     ASSERT_NULL(file, "Lexer File passed is a null pointer");
     Lexer l          = {0};
@@ -44,7 +44,7 @@ lexer_init(file_t *file)
     l.save_line      = 1;
     l.save_index     = 0;
     l.tokens         = make_array(Token, file->length / 4);
-    
+
     ASSERT_NULL(l.tokens, "Lexer vec of tokens passed is a null pointer");
     return l;
 }
@@ -127,7 +127,7 @@ lex_director(Lexer *l)
     // TODO: Multiline strings
     if (c == '"') return lex_strings(l);
     if (c == '\'') return lex_chars(l);
-    
+
     // NOTE: Idenitifiers, keywords and builtin functions
     if (c == '_' || isalpha(c)) return lex_identifiers(l);
     if (c == '@') return lex_builtin_funcs(l);
@@ -145,7 +145,7 @@ lex_identifiers(Lexer *l)
     }
     l->index -= l->len;
     TknType _type = Tkn_Identifier;
-    
+
     // TODO: optimize searching for matching keywords
     switch (l->len)
     {
@@ -153,49 +153,49 @@ lex_identifiers(Lexer *l)
             switch (lex_current(l))
             {
                 case 'a':
-                if (lex_keyword_match(l, "as", 2)) _type = Tkn_AsKeyword;
-                break;
+                    if (lex_keyword_match(l, "as", 2)) _type = Tkn_AsKeyword;
+                    break;
                 case 'f':
-                if (lex_keyword_match(l, "fn", 2)) _type = Tkn_FnKeyword;
-                break;
+                    if (lex_keyword_match(l, "fn", 2)) _type = Tkn_FnKeyword;
+                    break;
                 case 'i':
-                if (lex_keyword_match(l, "if", 2)) _type = Tkn_IfKeyword;
-                break;
+                    if (lex_keyword_match(l, "if", 2)) _type = Tkn_IfKeyword;
+                    break;
                 case 'o':
-                if (lex_keyword_match(l, "or", 2)) _type = Tkn_OrKeyword;
-                break;
+                    if (lex_keyword_match(l, "or", 2)) _type = Tkn_OrKeyword;
+                    break;
                 default: break;
             }
-            
+
             break;
         }
         case 3: {
             switch (lex_current(l))
             {
                 case 'l':
-                if (lex_keyword_match(l, "let", 3)) _type = Tkn_LetKeyword;
-                break;
+                    if (lex_keyword_match(l, "let", 3)) _type = Tkn_LetKeyword;
+                    break;
                 case 'f':
-                if (lex_keyword_match(l, "for", 3)) _type = Tkn_ForKeyword;
-                break;
+                    if (lex_keyword_match(l, "for", 3)) _type = Tkn_ForKeyword;
+                    break;
                 case 'p':
-                if (lex_keyword_match(l, "pub", 3)) _type = Tkn_PubKeyword;
-                break;
+                    if (lex_keyword_match(l, "pub", 3)) _type = Tkn_PubKeyword;
+                    break;
                 case 'i':
-                if (lex_keyword_match(l, "int", 3)) _type = Tkn_IntKeyword;
-                break;
+                    if (lex_keyword_match(l, "int", 3)) _type = Tkn_IntKeyword;
+                    break;
                 case 'r':
-                if (lex_keyword_match(l, "ref", 3))
-                    _type = Tkn_RefKeyword;
-                else if (lex_keyword_match(l, "ret", 3))
-                    _type = Tkn_RetKeyword;
-                break;
+                    if (lex_keyword_match(l, "ref", 3))
+                        _type = Tkn_RefKeyword;
+                    else if (lex_keyword_match(l, "ret", 3))
+                        _type = Tkn_RetKeyword;
+                    break;
                 case 'a':
-                if (lex_keyword_match(l, "and", 3)) _type = Tkn_AndKeyword;
-                break;
+                    if (lex_keyword_match(l, "and", 3)) _type = Tkn_AndKeyword;
+                    break;
                 case 'n':
-                if (lex_keyword_match(l, "nil", 3)) _type = Tkn_NilLiteral;
-                break;
+                    if (lex_keyword_match(l, "nil", 3)) _type = Tkn_NilLiteral;
+                    break;
             }
             break;
         }
@@ -210,20 +210,20 @@ lex_identifiers(Lexer *l)
                     break;
                 }
                 case 't':
-                if (lex_keyword_match(l, "true", 4)) _type = Tkn_TrueLiteral;
-                break;
+                    if (lex_keyword_match(l, "true", 4)) _type = Tkn_TrueLiteral;
+                    break;
                 case 'c':
-                if (lex_keyword_match(l, "char", 4)) _type = Tkn_CharKeyword;
-                break;
+                    if (lex_keyword_match(l, "char", 4)) _type = Tkn_CharKeyword;
+                    break;
                 case 'b':
-                if (lex_keyword_match(l, "bool", 4)) _type = Tkn_BoolKeyword;
-                break;
+                    if (lex_keyword_match(l, "bool", 4)) _type = Tkn_BoolKeyword;
+                    break;
                 case 'u':
-                if (lex_keyword_match(l, "uint", 4)) _type = Tkn_UIntKeyword;
-                break;
+                    if (lex_keyword_match(l, "uint", 4)) _type = Tkn_UIntKeyword;
+                    break;
                 case 'f':
-                if (lex_keyword_match(l, "fall", 4)) _type = Tkn_FallKeyword;
-                break;
+                    if (lex_keyword_match(l, "fall", 4)) _type = Tkn_FallKeyword;
+                    break;
             }
             break;
         }
@@ -231,8 +231,8 @@ lex_identifiers(Lexer *l)
             switch (lex_current(l))
             {
                 case 'w':
-                if (lex_keyword_match(l, "while", 5)) _type = Tkn_WhileKeyword;
-                break;
+                    if (lex_keyword_match(l, "while", 5)) _type = Tkn_WhileKeyword;
+                    break;
                 case 'f': {
                     if (lex_keyword_match(l, "false", 5))
                         _type = Tkn_FalseLiteral;
@@ -241,8 +241,8 @@ lex_identifiers(Lexer *l)
                     break;
                 }
                 case 'b':
-                if (lex_keyword_match(l, "break", 5)) _type = Tkn_BreakKeyword;
-                break;
+                    if (lex_keyword_match(l, "break", 5)) _type = Tkn_BreakKeyword;
+                    break;
             }
             break;
         }
@@ -250,11 +250,11 @@ lex_identifiers(Lexer *l)
             switch (lex_current(l))
             {
                 case 'i':
-                if (lex_keyword_match(l, "import", 6)) _type = Tkn_ImportKeyword;
-                break;
+                    if (lex_keyword_match(l, "import", 6)) _type = Tkn_ImportKeyword;
+                    break;
                 case 'd':
-                if (lex_keyword_match(l, "delete", 6)) _type = Tkn_DeleteKeyword;
-                break;
+                    if (lex_keyword_match(l, "delete", 6)) _type = Tkn_DeleteKeyword;
+                    break;
                 case 's': {
                     if (lex_keyword_match(l, "struct", 6))
                         _type = Tkn_StructKeyword;
@@ -267,7 +267,7 @@ lex_identifiers(Lexer *l)
         }
         default: break;
     }
-    
+
     if (l->len > 100)
     {
         // log_error("identifier length is more than 128 chars");
@@ -275,7 +275,7 @@ lex_identifiers(Lexer *l)
         lex_restore_state_for_err(l);
         return FAILURE;
     }
-    
+
     return lex_add_token(l, _type);
 }
 
@@ -284,7 +284,7 @@ lex_numbers(Lexer *l)
 {
     const char c = lex_current(l);
     const char p = lex_peek(l);
-    
+
     // 0x or 0b switch state of lexing to specific radix
     // x -> hexadecimal(r16) | b -> binary(r2)
     if (c == '0')
@@ -296,7 +296,7 @@ lex_numbers(Lexer *l)
             default: break;
         }
     }
-    
+
     bool reached_dot = false;
     while (isdigit(lex_current(l)) || lex_current(l) == '.')
     {
@@ -307,7 +307,7 @@ lex_numbers(Lexer *l)
             reached_dot = true;
         }
     }
-    
+
     if (l->len > 100)
     {
         log_error("number digits length is above 100");
@@ -328,7 +328,7 @@ lex_hex_numbers(Lexer *l)
     {
         lex_advance_len_inc(l);
     }
-    
+
     if (l->len > 0x20)
     {
         log_error("hex number digits length is above 32");
@@ -349,7 +349,7 @@ lex_binary_numbers(Lexer *l)
     {
         lex_advance_len_inc(l);
     }
-    
+
     if (l->len > 0x80)
     {
         log_error("binary number digits length is above 128");
@@ -372,7 +372,7 @@ lex_strings(Lexer *l)
             l->error = LE_NOT_CLOSED_STRING;
             return FAILURE;
         }
-        
+
         if (lex_current(l) == '"')
         {
             if (lex_past(l) == '\\')
@@ -386,7 +386,7 @@ lex_strings(Lexer *l)
         lex_advance_len_inc(l);
     }
     lex_advance_len_inc(l);
-    
+
     if (l->len > (RUINT_MAX / 2))
     {
         lex_restore_state_for_err(l);
@@ -420,9 +420,9 @@ lex_chars(Lexer *l)
             case '\\':
             case '\'': lex_advance_len_inc(l); break;
             default:
-            l->error = LE_NOT_VALID_ESCAPE_CHAR;
-            lex_restore_state_for_err(l);
-            return FAILURE;
+                l->error = LE_NOT_VALID_ESCAPE_CHAR;
+                lex_restore_state_for_err(l);
+                return FAILURE;
         }
         if (lex_current(l) == '\'')
         {
@@ -437,7 +437,7 @@ lex_chars(Lexer *l)
             return FAILURE;
         }
     }
-    
+
     return FAILURE;
 }
 
@@ -460,7 +460,7 @@ lex_symbols(Lexer *l)
         case '.': return lex_add_token(l, Tkn_Dot);
         case '%': return lex_add_token(l, Tkn_Mod);
         // TODO(5717) bug below needs to check an eql during peeking
-        
+
         // more than one length char
         case ':': {
             return lex_add_token(l, Tkn_Colon);
@@ -540,7 +540,7 @@ lex_symbols(Lexer *l)
             {
                 lex_advance(l); // skip '/'
                 lex_advance(l); // skip '*'
-                
+
                 // TODO: Allow nested comments
                 bool end_comment = false;
                 while (lex_is_not_eof(l) && !end_comment)
@@ -588,7 +588,7 @@ u8
 lex_builtin_funcs(Lexer *l)
 {
     lex_advance(l); // skip '@'
-    
+
     // NOTE(5717): ONLY ALPHABET CHARS ARE ALLOWED
     while (isalpha(lex_current(l)))
     {
@@ -653,14 +653,14 @@ lex_keyword_match(Lexer *l, cstr cstr, uint length)
     return res;
 }
 
-void
+inline void
 lex_save_state(Lexer *l)
 {
     l->save_index = l->index;
     l->save_line  = l->line;
 }
 
-void
+inline void
 lex_restore_state_for_err(Lexer *l)
 {
     l->index = l->save_index;
@@ -675,33 +675,33 @@ lex_report_error(Lexer *l)
     const uint line  = l->line;
     const uint len   = l->len;
     const uint index = l->index;
-    file_t *file     = l->file;
+    File *file     = l->file;
     while (file->contents[low] != '\n' && low > 0)
     {
         low--;
         col++;
     }
     low = low > 1 ? low + 1 : 0;
-    
+
     //
     uint _length = l->index;
     while (file->contents[_length] != '\n' && _length + 1 < file->length)
         _length++;
-    
+
     _length -= low;
-    
+
     // error msg
     fprintf(stderr, " > %s%s%s:%u:%u: %serror: %s%s%s\n", BOLD, WHITE, file->name, line, col, LRED,
             LBLUE, lexer_err_msg(l->error), RESET);
-    
+
     // line from source code
     fprintf(stderr, "  %s%u%s | %.*s\n", LYELLOW, line, RESET, _length, (file->contents + low));
-    
+
     const uint num_line_digits = get_digits_from_number(line);
-    
+
     // arrows pointing to error location
     const uint spaces = index - low + 1;
-    
+
     const uint MAX_ARROW_LEN = 101;
     if (len < 101)
     {
@@ -709,7 +709,7 @@ lex_report_error(Lexer *l)
         memset(arrows, 0, MAX_ARROW_LEN);
         memset(arrows, '^', len);
         arrows[len] = '\0';
-        
+
         fprintf(stderr, "  %*c |%*c%s%s%s\n", num_line_digits, ' ', spaces, ' ', LRED, BOLD,
                 arrows);
     }
@@ -722,7 +722,7 @@ lex_report_error(Lexer *l)
     return FAILURE;
 }
 
-u8
+inline u8
 lex_add_token(Lexer *l, TknType type)
 {
     // index at the end of the token
@@ -732,13 +732,15 @@ lex_add_token(Lexer *l, TknType type)
     return SUCCESS;
 }
 
-u8
+inline u8
 lex_add_terminator(Lexer *l)
 {
     if (array_len(l->tokens) > 0 && array_end(l->tokens).type != Tkn_Terminator)
     {
         return lex_add_token(l, Tkn_Terminator);
-    } else {
+    }
+    else
+    {
         lex_advance(l);
     }
     return SUCCESS;

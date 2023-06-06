@@ -6,7 +6,7 @@
 /// to avoid potential problems with the
 /// filesystem during reading as developers
 /// may modify the files during reading
-file_t
+File
 file_read(cstr name)
 {
     const usize len = strlen(name);
@@ -17,7 +17,7 @@ file_read(cstr name)
         fprintf(stderr, "%s%serror:%s file name: `%s` must end with `.vr`%s\n", BOLD, LRED, WHITE,
                 name, RESET);
 
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
 
     // open file
@@ -26,7 +26,7 @@ file_read(cstr name)
     {
         // display error message if file does not exist
         log_error("File does not exist");
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
 
     // Calculate the file length
@@ -35,7 +35,7 @@ file_read(cstr name)
     {
         log_error("File is empty");
         fclose(file);
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
 
     // NOTE: use max unsigned int possible to avoid overflow
@@ -46,7 +46,7 @@ file_read(cstr name)
     {
         log_error("File is too large");
         fclose(file);
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
     // rewind the fseek to the beginning of the file
     rewind(file);
@@ -61,7 +61,7 @@ file_read(cstr name)
         log_error("Read file error");
         fclose(file);
         free(buffer);
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
 
     // add nullptr charactor (EXTRA_NULL_TERMINATORS for extra safety)
@@ -75,19 +75,19 @@ file_read(cstr name)
         log_error("Only ascii text files are supported for compilation");
         fclose(file);
         free(buffer);
-        return (file_t){nullptr, nullptr, 0, failure};
+        return (File){nullptr, nullptr, 0, failure};
     }
 
     // Close the file
     fclose(file);
 
     uint _len  = (uint)length;
-    file_t res = (file_t){name, buffer, _len, success};
+    File res = (File){name, buffer, _len, success};
     return res;
 }
 
 void
-file_free(file_t *file)
+file_free(File *file)
 {
     mem_free(file->contents);
 }

@@ -128,5 +128,3 @@ bit_is_set(const u8 field, const u8 n)
     // NOTE(5717): returns non zero for true else 0 for false
     return ((field >> n) & 1);
 }
-
-// Custom ArrayList

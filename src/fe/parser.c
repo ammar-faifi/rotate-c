@@ -13,27 +13,28 @@ internal u8 parse_functions(Parser *);
 internal u8 parse_structs(Parser *);
 internal u8 parse_enums(Parser *);
 internal u8 parse_gl_vars(Parser *);
+internal u8 parse_code_block(Parser *);
 
 // NOTE(5717): useful parser utils
-internal Token
+inline internal Token
 current(Parser *p)
 {
     return array_at(p->lexer->tokens, (p->index));
 }
 
-internal Token
+inline internal Token
 next(Parser *p)
 {
     return array_at(p->lexer->tokens, (p->index + 1));
 }
 
-internal Token
+inline internal Token
 previous(Parser *p)
 {
     return array_at(p->lexer->tokens, (p->index - 1));
 }
 
-internal void
+inline internal void
 advance(Parser *p)
 {
     p->index++;
@@ -91,7 +92,7 @@ parse_director(Parser *p)
     u8 exit = SUCCESS;
     while (exit == SUCCESS)
     {
-        
+
         switch (current(p).type)
         {
             case Tkn_ImportKeyword: exit = parse_imports(p); break;
@@ -143,5 +144,13 @@ parse_gl_vars(Parser *p)
 {
     advance(p); // skip 'let'
     TODO("implement parse global variables");
+    return FAILURE;
+}
+
+u8
+parse_code_block(Parser *p)
+{
+    advance(p);
+    TODO("implement parse code blocks");
     return FAILURE;
 }

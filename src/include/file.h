@@ -4,8 +4,8 @@
 
 typedef enum
 {
+    failure = 0,
     success,
-    failure,
 } valid;
 
 typedef struct
@@ -14,7 +14,7 @@ typedef struct
     char *contents;
     const uint length; // contents length
     valid valid_code;
-} file_t;
+} File;
 
-file_t file_read(cstr name);
-void file_free(file_t *);
+File file_read(cstr name);
+void file_free(File *);

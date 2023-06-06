@@ -15,7 +15,7 @@ compile(compile_options *options)
 
     // Read file
     options->st = ST_FILE;
-    file_t file = file_read(options->filename);
+    File file = file_read(options->filename);
     ASSERT_RET_FAIL(file.valid_code == success, "file read error");
 
     /*

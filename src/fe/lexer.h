@@ -8,14 +8,14 @@ typedef struct Lexer
 {
     // lexer state variables
     uint index, len, line, begin_tkn_line, file_length;
-    file_t *file; // not owned by the lexer
+    File *file; // not owned by the lexer
     LexErr error;
     uint save_index, save_line;
     ArrayList(Token) tokens;
 } Lexer;
 
 // Lexer API
-Lexer lexer_init(file_t *);
+Lexer lexer_init(File *);
 void lexer_deinit(Lexer *);
 ArrayList(Token) lexer_get_tokens(Lexer *lexer);
 u8 lexer_lex(Lexer *);
