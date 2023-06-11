@@ -11,6 +11,7 @@ typedef struct Lexer
     File *file; // not owned by the lexer
     LexErr error;
     uint save_index, save_line;
+    TknType prev;
     ArrayList(Token) tokens;
 } Lexer;
 

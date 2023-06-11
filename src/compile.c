@@ -56,7 +56,7 @@ compile(compile_options *options)
         }
         else
         {
-            log_error("Log failed");
+            log_error("Failed to log to output.org");
         }
     }
 

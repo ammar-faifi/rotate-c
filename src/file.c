@@ -20,6 +20,8 @@ file_read(cstr name)
         return (File){nullptr, nullptr, 0, failure};
     }
 
+    
+
     // open file
     FILE *file = fopen(name, "rb");
     if (!file)

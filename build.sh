@@ -1,1 +1,1 @@
-zig build run -- main.vr --lex
+zig build run -- main.vr --lex 

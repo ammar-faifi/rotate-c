@@ -44,6 +44,7 @@ lexer_init(File *file)
     l.save_line      = 1;
     l.save_index     = 0;
     l.tokens         = make_array(Token, file->length / 4);
+    l.prev           = Tkn_Terminator;
 
     ASSERT_NULL(l.tokens, "Lexer vec of tokens passed is a null pointer");
     return l;
@@ -675,7 +676,7 @@ lex_report_error(Lexer *l)
     const uint line  = l->line;
     const uint len   = l->len;
     const uint index = l->index;
-    File *file     = l->file;
+    File *file       = l->file;
     while (file->contents[low] != '\n' && low > 0)
     {
         low--;
@@ -728,6 +729,7 @@ lex_add_token(Lexer *l, TknType type)
     // index at the end of the token
     Token tkn = (Token){l->index, l->len, l->begin_tkn_line, type};
     array_push(l->tokens, tkn);
+    l->prev = Tkn_Terminator;
     lex_advance_len_times(l);
     return SUCCESS;
 }
@@ -735,7 +737,7 @@ lex_add_token(Lexer *l, TknType type)
 inline u8
 lex_add_terminator(Lexer *l)
 {
-    if (array_len(l->tokens) > 0 && array_end(l->tokens).type != Tkn_Terminator)
+    if (l->prev != Tkn_Terminator)
     {
         return lex_add_token(l, Tkn_Terminator);
     }

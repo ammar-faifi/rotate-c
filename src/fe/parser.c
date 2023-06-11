@@ -40,7 +40,7 @@ advance(Parser *p)
     p->index++;
 }
 
-internal u8
+inline internal u8
 expect_n_consume(Parser *p, TknType t)
 {
     Token tkn = current(p);
