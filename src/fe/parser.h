@@ -5,7 +5,7 @@
 typedef struct Parser
 {
     Lexer *lexer;
-    u32 index;
+    uint index;
 } Parser;
 
 Parser parser_init(Lexer *);

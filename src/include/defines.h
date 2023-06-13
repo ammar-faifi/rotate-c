@@ -164,11 +164,11 @@ static_assert(sizeof(usize) == sizeof(u64), "invalid isize int size");
 
 typedef const char *cstr;
 
-#define SUCCESS 0u // EXIT_SUCCESS
-#define FAILURE 1u // EXIT_FAILURE
-#define DONE    2u // EXIT_DONE
-static_assert(SUCCESS == 0 && EXIT_SUCCESS == SUCCESS, "Exit Success code is wrong");
-static_assert(FAILURE == 1 && EXIT_FAILURE == FAILURE, "Exit Failure code is wrong");
+internal const u8 SUCCESS = 0u; // EXIT_SUCCESS
+internal const u8 FAILURE = 1u; // EXIT_FAILURE
+internal const u8 DONE    = 2u; // EXIT_DONE
+static_assert(EXIT_SUCCESS == SUCCESS, "Exit Success code is wrong");
+static_assert(EXIT_FAILURE == FAILURE, "Exit Failure code is wrong");
 static_assert(DONE == 2 && EXIT_FAILURE == (DONE - 1), "Exit Done code is wrong");
 
 #if OS_WIN

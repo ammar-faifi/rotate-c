@@ -154,3 +154,9 @@ parse_code_block(Parser *p)
     TODO("implement parse code blocks");
     return FAILURE;
 }
+
+u8
+parse_if_statment(Parser *p)
+{
+    return FAILURE;
+}

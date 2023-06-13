@@ -44,7 +44,7 @@ lexer_init(File *file)
     l.save_line      = 1;
     l.save_index     = 0;
     l.tokens         = make_array(Token, file->length / 4);
-    l.prev           = Tkn_Terminator;
+    l.prev           = Tkn_EOT;
 
     ASSERT_NULL(l.tokens, "Lexer vec of tokens passed is a null pointer");
     return l;

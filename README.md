@@ -5,9 +5,9 @@
 C codebase version
 
 ```cpp
-io :: import "std/io"
+import "std/io" as io
 
-main :: fn () {
+fn main() {
      io.println("Hello, World")
 }
 ```
