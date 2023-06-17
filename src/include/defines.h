@@ -68,7 +68,7 @@
         if (!(expr))                                                                               \
         {                                                                                          \
             log_error(msg);                                                                        \
-            return EXIT_FAILURE;                                                                   \
+            return exit;                                                                           \
         }                                                                                          \
     } while (0)
 

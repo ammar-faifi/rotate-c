@@ -3,6 +3,7 @@ version(1);
 project_name = "rotate";
 
 patterns = {
+"build.zig",
 "*.c",
 "*.h",
 "*.bat",

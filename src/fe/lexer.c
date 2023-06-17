@@ -737,13 +737,8 @@ lex_add_token(Lexer *l, TknType type)
 inline u8
 lex_add_terminator(Lexer *l)
 {
-    if (l->prev != Tkn_Terminator)
-    {
-        return lex_add_token(l, Tkn_Terminator);
-    }
-    else
-    {
-        lex_advance(l);
-    }
+    if (l->prev != Tkn_Terminator) return lex_add_token(l, Tkn_Terminator);
+
+    lex_advance(l);
     return SUCCESS;
 }

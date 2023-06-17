@@ -6,17 +6,18 @@
 
 #include "fe/parser.h"
 
-u8
+compile_info_stats 
 compile(compile_options *options)
 {
 
     // Parser *parser;
-    u8 exit = 0;
+    compile_info_stats exit = {0};
 
     // Read file
     options->st = ST_FILE;
     File file = file_read(options->filename);
     ASSERT_RET_FAIL(file.valid_code == success, "file read error");
+    exit.file_size = file.length;
 
     /*
      *
@@ -25,9 +26,10 @@ compile(compile_options *options)
      * */
     options->st = ST_LEXER;
     Lexer lexer = lexer_init(&file);
-    exit        = lexer_lex(&lexer);
+    exit.status        = lexer_lex(&lexer);
     if (lexer_get_tokens(&lexer)->count < 2u) log_error("file is empty");
-    if (exit == FAILURE) return FAILURE;
+    if (exit.status == FAILURE) return exit;
+    exit.token_count = array_len(lexer.tokens);
     // parse lexed tokens to Abstract Syntax tree
 
     /*

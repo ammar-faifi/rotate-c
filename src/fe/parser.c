@@ -158,5 +158,7 @@ parse_code_block(Parser *p)
 u8
 parse_if_statment(Parser *p)
 {
+    advance(p);
+    TODO("implement parse if statement");
     return FAILURE;
 }

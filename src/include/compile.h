@@ -16,6 +16,12 @@ typedef struct
     Stage st;
 } compile_options;
 
-u8 compile(compile_options *options);
+typedef struct
+{
+    uint file_size;
+    uint token_count;
+    u8 status;
+} compile_info_stats;
 
+compile_info_stats compile(compile_options *options);
 compile_options compile_options_new(const i32 argc, i8 **argv);

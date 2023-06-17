@@ -34,15 +34,19 @@ main(const int argc, char **const argv)
     start_t = clock();
 
     // compile
-    u8 _exit = compile(&comp_opt);
-    if (_exit == FAILURE)
+    usize file_size = 0;
+    compile_info_stats _exit = compile(&comp_opt);
+    if (_exit.status == FAILURE)
         log_stage(main_err(comp_opt.st));
-    else if (_exit == SUCCESS)
+    else if (_exit.status == SUCCESS)
         log_info("SUCCESS");
 
     // print comptime
     end_t   = clock();
-    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+    total_t = (f64)(end_t - start_t) / CLOCKS_PER_SEC;
+    printf("[%sINFO%s] : %d Tokens\n", LMAGENTA BOLD, RESET, _exit.token_count);
+    printf("[%sRATE%s] : %.3Lf mb/sec\n", LMAGENTA BOLD, RESET, 
+		    (_exit.file_size/(1024*1024))/total_t);
     printf("[%sTIME%s] : %.5Lf sec\n", LMAGENTA BOLD, RESET, total_t);
     return SUCCESS;
 }
