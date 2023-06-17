@@ -26,8 +26,8 @@ command_list = {
    .out = "*clean*", .footer_panel = true, .save_dirty_files = false, .cursor_at_end = true,
    .cmd = {
           {"rm zig-out", .os = "win"},
-          {"rm zig-*", .os = "linux"},
-          {"rm zig-*", .os = "mac"},          
+          {"rm -rf zig-*", .os = "linux"},
+          {"rm -rf zig-*", .os = "mac"},          
    },
  },
  { .name = "build",
